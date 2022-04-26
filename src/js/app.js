@@ -1,11 +1,23 @@
-export default class Validator {
-  static validateUsername(username) {
-    const rules1 = /^[a-z][\w_-]*[a-z]$/i.test(username);
-    const rules2 = /\d{4}/.test(username);
+export default class Team {
+  constructor() {
+    this.members = new Set();
+  }
 
-    if (rules1 && !rules2) {
-      return true;
+  add(person) {
+    if (this.members.has(person)) {
+      throw new Error('Такой персонаж уже есть в команде!');
+    } else {
+      this.members.add(person);
     }
-    return false;
+  }
+
+  addAll(...persons) {
+    persons.forEach((el) => {
+      this.members.add(el);
+    });
+  }
+
+  toArray() {
+    return Array.from(this.members);
   }
 }

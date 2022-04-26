@@ -1,26 +1,34 @@
-import Validator from '../app';
+import Team from '../app';
 
-test('Should return true since all rules are met', () => {
-  const result = Validator.validateUsername('userName-978a');
-  expect(result).toBeTruthy();
+test('Should add an archer to the team', () => {
+  const archer = { name: 'Лучник' };
+  const team = new Team();
+  team.add(archer);
+
+  const expected = [archer];
+  const result = team.toArray();
+
+  expect(result).toEqual(expected);
 });
 
-test('Should return false since it starts with a number', () => {
-  const result = Validator.validateUsername('1userName-978a');
-  expect(result).toBeFalsy();
+test('Should add an archer and warrior to the team', () => {
+  const archer = { name: 'Лучник' };
+  const warrior = { name: 'Воин' };
+  const team = new Team();
+  team.addAll(archer, warrior, archer);
+
+  const expected = [archer, warrior];
+  const result = team.toArray();
+
+  expect(result).toEqual(expected);
 });
 
-test('Should return false since it ends with a number', () => {
-  const result = Validator.validateUsername('userName-978');
-  expect(result).toBeFalsy();
-});
+test('Should throw an error as the character already exists', () => {
+  const archer = { name: 'Лучник' };
+  const team = new Team();
+  team.add(archer);
 
-test('should return false since 4 digits in a row', () => {
-  const result = Validator.validateUsername('userName-9758a');
-  expect(result).toBeFalsy();
-});
+  const expected = Error('Такой персонаж уже есть в команде!');
 
-test('should return false since it ends with a character -', () => {
-  const result = Validator.validateUsername('userName-9758a-');
-  expect(result).toBeFalsy();
+  expect(() => team.add(archer)).toThrow(expected);
 });

@@ -1,7 +1,7 @@
 {
   "name": "ajs_hw_7_1",
   "version": "1.0.0",
-  "description": "---\r ### Никнеймы\r #### Легенда",
+  "description": "---\r ### Set\r #### Легенда",
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage",
